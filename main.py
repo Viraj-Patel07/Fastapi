@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+import uvicorn
 
 app = FastAPI()
 
@@ -17,7 +18,7 @@ class Blog(BaseModel):
     body: str
     published: Optional[bool]
     
-    def dict(self):
+    def dict(self): 
         return super().dict(exclude_unset=True)
     
 @app.post("/blog")
@@ -36,4 +37,9 @@ def show(id: int):
 @app.get("/blog/{id}/comments")
 def comments(id: int):
     return {"data":{1,2,3,4,5,6,7,8,9,10}}
+
+
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="127.0.0.1", port=9000)
 
